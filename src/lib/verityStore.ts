@@ -29,9 +29,11 @@ const useVerityStore = create<VerityStore>((set) => ({
         let steps: Step[] = [];
 
         if (newStatues.every((statue) => statue.ready)) {
+          logger.info("statues", newStatues);
           const stopTimer = logger.time("verity solver");
           steps = getSteps(newStatues);
           stopTimer();
+          logger.info("steps", steps);
         }
 
         return { statues: newStatues, steps };

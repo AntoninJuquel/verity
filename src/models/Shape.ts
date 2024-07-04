@@ -16,6 +16,14 @@ export class Shape {
   get combination(): Combination {
     return this._combination;
   }
+
+  get dupe(): Combination {
+    return [
+      this.combination[0] && !this.combination[1] && !this.combination[2],
+      !this.combination[0] && this.combination[1] && !this.combination[2],
+      !this.combination[0] && !this.combination[1] && this.combination[2],
+    ];
+  }
 }
 
 export const None = new Shape("none", [false, false, false]);

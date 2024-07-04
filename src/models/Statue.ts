@@ -1,4 +1,3 @@
-import { Combination } from "./Combination";
 import {
   getShape2DByCombination,
   getShape3DByCombination,
@@ -45,60 +44,51 @@ export class Statue {
 
   get goal(): Shape {
     return getShape3DByCombination([
-      !this._callout.combination[0],
-      !this._callout.combination[1],
-      !this._callout.combination[2],
+      !this.callout.combination[0],
+      !this.callout.combination[1],
+      !this.callout.combination[2],
     ]);
   }
 
   get done(): boolean {
     return (
-      this._currentShape.combination[0] === this.goal.combination[0] &&
-      this._currentShape.combination[1] === this.goal.combination[1] &&
-      this._currentShape.combination[2] === this.goal.combination[2]
+      this.currentShape.combination[0] === this.goal.combination[0] &&
+      this.currentShape.combination[1] === this.goal.combination[1] &&
+      this.currentShape.combination[2] === this.goal.combination[2]
     );
   }
 
   get toGive(): Shape {
     return getShape3DByCombination([
-      (this._currentShape.combination[0] && !this.goal.combination[0]) ||
-        (this._currentShape.combination[0] && this.dupe[0]),
-      (this._currentShape.combination[1] && !this.goal.combination[1]) ||
-        (this._currentShape.combination[1] && this.dupe[1]),
-      (this._currentShape.combination[2] && !this.goal.combination[2]) ||
-        (this._currentShape.combination[2] && this.dupe[2]),
+      (this.currentShape.combination[0] && !this.goal.combination[0]) ||
+        (this.currentShape.combination[0] && this.currentShape.dupe[0]),
+      (this.currentShape.combination[1] && !this.goal.combination[1]) ||
+        (this.currentShape.combination[1] && this.currentShape.dupe[1]),
+      (this.currentShape.combination[2] && !this.goal.combination[2]) ||
+        (this.currentShape.combination[2] && this.currentShape.dupe[2]),
     ]);
   }
 
   get toTake(): Shape {
     return getShape3DByCombination([
-      !this._currentShape.combination[0] && this.goal.combination[0],
-      !this._currentShape.combination[1] && this.goal.combination[1],
-      !this._currentShape.combination[2] && this.goal.combination[2],
+      !this.currentShape.combination[0] && this.goal.combination[0],
+      !this.currentShape.combination[1] && this.goal.combination[1],
+      !this.currentShape.combination[2] && this.goal.combination[2],
     ]);
-  }
-
-  get dupe(): Combination {
-    return [
-      this._currentShape.combination[0] &&
-        !this._currentShape.combination[1] &&
-        !this._currentShape.combination[2],
-      !this._currentShape.combination[0] &&
-        this._currentShape.combination[1] &&
-        !this._currentShape.combination[2],
-      !this._currentShape.combination[0] &&
-        !this._currentShape.combination[1] &&
-        this._currentShape.combination[2],
-    ];
   }
 
   get ready(): boolean {
     return (
       this.callout.name !== None.name &&
       this.startingShape.name !== None.name &&
-      this.currentShape.name !== None.name
+      this.goal.name !== None.name
     );
   }
+
+  restart(): void {
+    this._currentShape = this.startingShape;
+  }
+
   availableCalloutShapes(statues: [Statue, Statue, Statue]): Shape[] {
     const availableCombination = [
       !statues[0].callout.combination[0] &&
@@ -127,27 +117,27 @@ export class Statue {
           !statues[2].startingShape.combination[0]) &&
         (!statues[0].startingShape.combination[0] ||
           !statues[2].startingShape.combination[0]) &&
-        !statues[0].dupe[0] &&
-        !statues[1].dupe[0] &&
-        !statues[2].dupe[0],
+        !statues[0].startingShape.dupe[0] &&
+        !statues[1].startingShape.dupe[0] &&
+        !statues[2].startingShape.dupe[0],
       (!statues[0].startingShape.combination[1] ||
         !statues[1].startingShape.combination[1]) &&
         (!statues[1].startingShape.combination[1] ||
           !statues[2].startingShape.combination[1]) &&
         (!statues[0].startingShape.combination[1] ||
           !statues[2].startingShape.combination[1]) &&
-        !statues[0].dupe[1] &&
-        !statues[1].dupe[1] &&
-        !statues[2].dupe[1],
+        !statues[0].startingShape.dupe[1] &&
+        !statues[1].startingShape.dupe[1] &&
+        !statues[2].startingShape.dupe[1],
       (!statues[0].startingShape.combination[2] ||
         !statues[1].startingShape.combination[2]) &&
         (!statues[1].startingShape.combination[2] ||
           !statues[2].startingShape.combination[2]) &&
         (!statues[0].startingShape.combination[2] ||
           !statues[2].startingShape.combination[2]) &&
-        !statues[0].dupe[2] &&
-        !statues[1].dupe[2] &&
-        !statues[2].dupe[2],
+        !statues[0].startingShape.dupe[2] &&
+        !statues[1].startingShape.dupe[2] &&
+        !statues[2].startingShape.dupe[2],
     ];
     return shapes3D.filter(
       (shape) =>
@@ -197,9 +187,9 @@ export class Statue {
 
   give(shape: Shape): void {
     this._currentShape = getShape3DByCombination([
-      this._currentShape.combination[0] || shape.combination[0],
-      this._currentShape.combination[1] || shape.combination[1],
-      this._currentShape.combination[2] || shape.combination[2],
+      this.currentShape.combination[0] || shape.combination[0],
+      this.currentShape.combination[1] || shape.combination[1],
+      this.currentShape.combination[2] || shape.combination[2],
     ]);
   }
 
@@ -213,12 +203,12 @@ export class Statue {
 
   take(shape: Shape): void {
     this._currentShape = getShape3DByCombination([
-      (this._currentShape.combination[0] && !shape.combination[0]) ||
-        (this._currentShape.combination[0] && this.dupe[0]),
-      (this._currentShape.combination[1] && !shape.combination[1]) ||
-        (this._currentShape.combination[1] && this.dupe[1]),
-      (this._currentShape.combination[2] && !shape.combination[2]) ||
-        (this._currentShape.combination[2] && this.dupe[2]),
+      (this.currentShape.combination[0] && !shape.combination[0]) ||
+        (this.currentShape.combination[0] && this.currentShape.dupe[0]),
+      (this.currentShape.combination[1] && !shape.combination[1]) ||
+        (this.currentShape.combination[1] && this.currentShape.dupe[1]),
+      (this.currentShape.combination[2] && !shape.combination[2]) ||
+        (this.currentShape.combination[2] && this.currentShape.dupe[2]),
     ]);
   }
 

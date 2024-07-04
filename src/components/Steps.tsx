@@ -17,7 +17,7 @@ export function Steps({ statue }: StepsProps) {
       {steps.map((step, index) =>
         step.statue.name === statue.name ? (
           <Button
-            key={index}
+            key={`${index}-${step.statue.name}-${step.shape.name}`}
             className="text-sm font-bold"
             variant={step.done ? "secondary" : "outline"}
             onClick={() => actions.toggleStep(index)}

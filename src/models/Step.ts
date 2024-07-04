@@ -31,6 +31,11 @@ export class Step {
 
 export function getSteps(statues: Statue[]): Step[] {
   const steps: Step[] = [];
+
+  for (const statue of statues) {
+    statue.restart();
+  }
+
   while (findTrade(statues).length > 0) {
     const [i, j] = findTrade(statues);
     const [giveI, giveJ] = statues[i].trade(statues[j]);
