@@ -1,6 +1,7 @@
 import { Statue } from "@/models/Statue";
 import { getSteps, Step } from "@/models/Step";
 import { create } from "zustand";
+import { logger } from "./logger";
 
 interface VerityState {
   statues: [Statue, Statue, Statue];
@@ -23,9 +24,15 @@ const useVerityStore = create<VerityStore>((set) => ({
       set((state) => {
         const newStatues = [...state.statues] as [Statue, Statue, Statue];
         newStatues[index] = statue;
-        const steps = newStatues.every((statue) => statue.ready)
-          ? getSteps(newStatues)
-          : [];
+
+        let steps: Step[] = [];
+
+        if (newStatues.every((statue) => statue.ready)) {
+          const stopTimer = logger.time("verity solver");
+          steps = getSteps(newStatues);
+          stopTimer();
+        }
+
         return { statues: newStatues, steps };
       });
     },

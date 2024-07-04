@@ -1,4 +1,5 @@
 import { None, Shape } from "@/models/Shape";
+import { ShapeImage } from "./ShapeImage";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 
 type CalloutsProps = {
@@ -9,7 +10,7 @@ type CalloutsProps = {
   availableShapes: Shape[];
 };
 
-function Callouts({
+export function Callouts({
   title,
   shapes,
   value,
@@ -40,12 +41,10 @@ function Callouts({
               ) && shape.name !== value.name
             }
           >
-            <img src={`/verity/${shape.name}.svg`} className="h-10 w-10" />
+            <ShapeImage shape={shape} />
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
     </div>
   );
 }
-
-export default Callouts;

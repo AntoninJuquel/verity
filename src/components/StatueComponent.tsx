@@ -1,13 +1,10 @@
-import {
-  useVerityActions,
-  useVerityStatues,
-  useVeritySteps,
-} from "@/lib/verityStore";
+import { useVerityActions, useVerityStatues } from "@/lib/verityStore";
 import { Shape, shapes2D, shapes3D } from "@/models/Shape";
 import { Statue } from "@/models/Statue";
 import { RotateCcw } from "lucide-react";
-import Callouts from "./Callouts";
-import Goal from "./Goal";
+import { Callouts } from "./Callouts";
+import { Goal } from "./Goal";
+import { Steps } from "./Steps";
 import { Button } from "./ui/button";
 
 type StatueComponentProps = {
@@ -15,12 +12,8 @@ type StatueComponentProps = {
   statue: Statue;
 };
 
-export default function StatueComponent({
-  index,
-  statue,
-}: StatueComponentProps) {
+export function StatueComponent({ index, statue }: StatueComponentProps) {
   const statues = useVerityStatues();
-  const steps = useVeritySteps();
   const actions = useVerityActions();
 
   function onChangeInside(callout: Shape) {
@@ -59,19 +52,7 @@ export default function StatueComponent({
         availableShapes={statue.availableStartingShapes(statues)}
       />
       <Goal shape={statue.goal} />
-      {steps.map((step, index) =>
-        step.statue.name === statue.name ? (
-          <div key={index} className="text-sm font-bold">
-            {index + 1}
-            <img
-              src={`/verity/${step.shape.name}.svg`}
-              className="h-10 w-10 inline"
-            />
-          </div>
-        ) : (
-          <div key={index}>-</div>
-        ),
-      )}
+      <Steps statue={statue} />
     </div>
   );
 }

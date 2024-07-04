@@ -1,20 +1,19 @@
 import { None, Shape } from "@/models/Shape";
+import { ShapeImage } from "./ShapeImage";
 
 type GoalProps = {
   shape: Shape;
 };
 
-function Goal({ shape }: GoalProps) {
+export function Goal({ shape }: GoalProps) {
   return (
     <div>
       <h2 className="text-2xl font-bold">Goal</h2>
       {shape.name !== None.name ? (
-        <img src={`/verity/${shape.name}.svg`} className="h-10 w-10" />
+        <ShapeImage shape={shape} />
       ) : (
-        "Select callouts to see the goal"
+        "Select inside callouts to see the goal"
       )}
     </div>
   );
 }
-
-export default Goal;

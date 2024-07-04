@@ -21,7 +21,11 @@ export class ConsoleLogger implements Logger {
   readonly info: LogFn;
   readonly warn: LogFn;
   readonly error: LogFn;
-  readonly time = console.time;
+  readonly time = (tag: string) => {
+    const key = `[${tag}]`;
+    console.time(key);
+    return () => console.timeEnd(key);
+  };
 
   constructor(options?: { level?: LogLevel }) {
     const { level } = options || {};

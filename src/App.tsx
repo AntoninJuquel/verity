@@ -1,12 +1,14 @@
-import StatueComponent from "./components/StatueComponent";
+import { DarkLightButton } from "./components/DarkLightButton";
+import { StatueComponent } from "./components/StatueComponent";
 import { Button } from "./components/ui/button";
 import { useVerityStatues } from "./lib/verityStore";
 
 function App() {
   const statues = useVerityStatues();
   return (
-    <div className="container mx-auto p-4">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="container mx-auto p-4 text-center">
+      <DarkLightButton />
+      <div className="grid gap-4 lg:grid-cols-1 xl:grid-cols-3">
         {statues.map((statue, index) => (
           <StatueComponent key={statue.name} statue={statue} index={index} />
         ))}
@@ -20,7 +22,7 @@ function App() {
         }}
         title="Visit github"
       >
-        <img src="/verity/github.svg" alt="github" />
+        <img src="/verity/github.svg" alt="github" className="dark:invert" />
       </Button>
     </div>
   );
