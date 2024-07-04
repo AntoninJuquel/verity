@@ -32,7 +32,7 @@ export function Steps({ statue }: StepsProps) {
             </Button>
           </div>
         ) : (
-          <p className="h-10" key={index}>
+          <p className="h-10 content-center" key={index}>
             -
           </p>
         ),
