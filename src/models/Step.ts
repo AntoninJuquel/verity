@@ -5,6 +5,7 @@ import { findTrade } from "./Trade";
 export class Step {
   private _statue: Statue;
   private _shape: Shape;
+  private _done: boolean = false;
 
   constructor(statue: Statue, shape: Shape) {
     this._statue = statue;
@@ -17,6 +18,14 @@ export class Step {
 
   get shape(): Shape {
     return this._shape;
+  }
+
+  get done(): boolean {
+    return this._done;
+  }
+
+  set done(value: boolean) {
+    this._done = value;
   }
 }
 

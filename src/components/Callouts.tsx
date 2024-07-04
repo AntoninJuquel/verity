@@ -33,7 +33,7 @@ export function Callouts({
           <ToggleGroupItem
             key={shape.name}
             value={shape.name}
-            aria-label={`Toggle ${shape}`}
+            aria-label={`Toggle ${shape.name}`}
             className="h-fit py-3"
             disabled={
               !availableShapes.find(

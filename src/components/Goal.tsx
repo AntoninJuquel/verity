@@ -10,7 +10,7 @@ export function Goal({ shape }: GoalProps) {
     <div>
       <h2 className="text-2xl font-bold">Goal</h2>
       {shape.name !== None.name ? (
-        <ShapeImage shape={shape} />
+        <ShapeImage shape={shape} className="m-auto" />
       ) : (
         "Select inside callouts to see the goal"
       )}
