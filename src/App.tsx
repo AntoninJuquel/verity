@@ -12,7 +12,6 @@ function App() {
         ))}
       </div>
       <Button
-        // href="https://github.com/AntoninJuquel/verity"
         className="absolute bottom-2 left-2"
         size="icon"
         variant="link"
