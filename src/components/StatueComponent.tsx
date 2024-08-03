@@ -51,8 +51,8 @@ export function StatueComponent({ index, statue }: StatueComponentProps) {
         onChange={onChangeOutside}
         availableShapes={statue.availableStartingShapes(statues)}
       />
-      <Goal shape={statue.goal} />
       <Steps statue={statue} />
+      <Goal shape={statue.goal} />
     </div>
   );
 }
