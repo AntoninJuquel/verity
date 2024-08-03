@@ -1,4 +1,5 @@
 import { DarkLightButton } from "./components/DarkLightButton";
+import InputShapes from "./components/InputShapes";
 import { StatueComponent } from "./components/StatueComponent";
 import { Button } from "./components/ui/button";
 import { useVerityStatues } from "./lib/verityStore";
@@ -24,6 +25,7 @@ function App() {
       >
         <img src="/verity/github.svg" alt="github" className="dark:invert" />
       </Button>
+      <InputShapes />
     </div>
   );
 }

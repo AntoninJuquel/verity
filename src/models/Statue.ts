@@ -244,3 +244,13 @@ export class Statue {
     ];
   }
 }
+
+export function findIncompleteStatue(statues: Statue[]) {
+  let statue = statues.find((statue) => statue.callout.name === None.name);
+
+  if (!statue) {
+    statue = statues.find((statue) => statue.startingShape.name === None.name);
+  }
+
+  return statue;
+}
