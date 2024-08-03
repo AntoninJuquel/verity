@@ -11,6 +11,7 @@ interface VerityState {
 interface VerityActions {
   setStatue: (statue: Statue, index: number) => void;
   toggleStep: (index: number) => void;
+  resetAll: () => void;
 }
 
 interface VerityStore extends VerityState {
@@ -44,6 +45,16 @@ const useVerityStore = create<VerityStore>((set) => ({
         const newSteps = [...state.steps];
         newSteps[index].done = !newSteps[index].done;
         return { steps: newSteps };
+      });
+    },
+    resetAll: () => {
+      set({
+        statues: [
+          new Statue("left"),
+          new Statue("middle"),
+          new Statue("right"),
+        ],
+        steps: [],
       });
     },
   },
