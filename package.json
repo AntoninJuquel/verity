@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://AntoninJuquel.github.io/Verity",
+  "homepage": "https://AntoninJuquel.github.io/verity",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
